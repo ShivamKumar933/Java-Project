@@ -1,11 +1,8 @@
 import java.util.Scanner;
-
-
-public class ATM{
-    private static class Users{
-        int balance;
-        int pin;
-        String name;
+class Users{
+        private int balance;
+        private int pin;
+        private String name;
 
         public void setBalance(int balance) {
             this.balance = balance;
@@ -19,7 +16,16 @@ public class ATM{
         public int getBalance() {
             return balance;
         }
+        public String getName() {
+            return name;
+        }
+        public int getPin(){
+            return pin;
+        }
     }
+
+public class ATM{
+    
 
     int balance;
 
@@ -79,7 +85,8 @@ public class ATM{
         System.out.println("\n\t-----------------------------------------");
         System.out.println("\t-----------------FASTCASH----------------");
         System.out.println("\t-----------------------------------------");
-        System.out.println("\n\tEnter 1 : 1000\t\tEnter 4 : 25000");
+        System.out.println("\n\t\tCurrent Balance : "+user.getBalance());
+        System.out.println("\n\n\tEnter 1 : 1000\t\tEnter 4 : 25000");
         System.out.println("\n\tEnter 2 : 5000\t\tEnter 5 : 50000");
         System.out.println("\n\tEnter 3 : 10000\t\tEnter 6 : 100000");
         System.out.println("\n\n\tEnter 0 : Main Menu");
@@ -87,7 +94,7 @@ public class ATM{
         System.out.println("\n\n\t\tEnter Your Choice");
         int choice = sc.nextInt();
 
-        balance = user.balance;
+        balance = user.getBalance();
         switch(choice){
             case 0:
             break;
@@ -97,7 +104,8 @@ public class ATM{
                     fastCash();
                 }
                 else{
-                    user.balance -= 1000;
+                    balance -= 1000;
+                    user.setBalance(balance);
                     System.out.println("\n\t\tRS.1000 Successfully withdrawed");
                 }
             break;
@@ -107,7 +115,8 @@ public class ATM{
                     fastCash();
                 }
                 else{
-                    user.balance -= 5000;
+                    balance -= 5000;
+                    user.setBalance(balance);
                     System.out.println("\n\t\tRS.5000 Successfully withdrawed");
                 }
             break;
@@ -117,7 +126,8 @@ public class ATM{
                     fastCash();
                 }
                 else{
-                    user.balance -= 10000;
+                    balance -= 10000;
+                    user.setBalance(balance);
                     System.out.println("\n\t\tRS.10000 Successfully withdrawed");
                 }
             break;
@@ -127,7 +137,8 @@ public class ATM{
                     fastCash();
                 }
                 else{
-                    user.balance -= 25000;
+                    balance -= 25000;
+                    user.setBalance(balance);
                     System.out.println("\n\t\tRS.25000 Successfully withdrawed");
                 }
             break;
@@ -137,7 +148,8 @@ public class ATM{
                     fastCash();
                 }
                 else{
-                    user.balance -= 50000;
+                    balance -= 50000;
+                    user.setBalance(balance);
                     System.out.println("\n\t\tRS.50000 Successfully withdrawed");
                 }
             break;
@@ -147,7 +159,8 @@ public class ATM{
                     fastCash();
                 }
                 else{
-                    user.balance -= 100000;
+                    balance -= 100000;
+                    user.setBalance(balance);
                     System.out.println("\n\t\tRS.100000 Successfully withdrawed");
                 }
             break;
@@ -159,6 +172,7 @@ public class ATM{
 
     private void deposit(){
         Scanner sc = new Scanner(System.in);
+        int balance=user.getBalance();
 
         System.out.println("\n\t-----------------------------------------");
         System.out.println("\t-----------------DEPOSIT-----------------");
@@ -167,7 +181,8 @@ public class ATM{
         int p = sc.nextInt();
 
         if(p>0){
-            user.balance += p;
+            balance += p;
+            user.setBalance(balance);
             System.out.println("\n\t\tMoney successfully Deposited");
         }
         else{
@@ -198,7 +213,7 @@ public class ATM{
     }
  
     private boolean checkIsTrue(String n, int p){
-        if(user.name.equalsIgnoreCase(n) && user.pin == p)
+        if(user.getName().equalsIgnoreCase(n) && user.getPin() == p)
             return true;
         return false;
     }
@@ -230,7 +245,7 @@ public class ATM{
         System.out.println("\t-----------------------------------------");
         Scanner sc = new Scanner(System.in);
         
-        int balance = user.balance;
+        int balance = user.getBalance();
         System.out.println("\n\t\tCurrent Balance : "+ balance);
         System.out.println("\n\tEnter how much money you want to withdraw");
         System.out.println("\n\t(Amount should be >= 500 ,And <= 10000 And Multiple of 100)");
@@ -241,8 +256,8 @@ public class ATM{
             withdraw();
         }
         else if(amount>=500 && amount<=10000 && amount%100==0){
-            user.balance = balance - amount;
-            balance = user.balance;
+            user.setBalance(balance - amount);
+            balance = user.getBalance();
             System.out.println("\t" + amount + " withdrawed remaining balance is : "+balance);
         }
         else{
